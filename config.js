@@ -6,7 +6,7 @@ var config = {
 
     hosts: {
         // XMPP domain.
-        domain: 'jitsi-meet.example.com',
+        domain: 'meet.g3partner.com.br',
 
         // When using authentication, domain for guest users.
         // anonymousdomain: 'guest.example.com',
@@ -22,7 +22,7 @@ var config = {
     },
 
     // BOSH URL. FIXME: use XEP-0156 to discover it.
-    bosh: '//jitsi-meet.example.com/http-bind',
+    bosh: '//meet.g3partner.com.br/http-bind',
 
     // Websocket URL
     // websocket: 'wss://jitsi-meet.example.com/xmpp-websocket',
@@ -72,7 +72,7 @@ var config = {
     },
 
     // Enables reactions feature.
-    // enableReactions: false,
+    enableReactions: true,
 
     // Disables polls feature.
     // disablePolls: false,
@@ -123,7 +123,7 @@ var config = {
     // startAudioOnly: false,
 
     // Every participant after the Nth will start audio muted.
-    // startAudioMuted: 10,
+    // startAudioMuted: 5,
 
     // Start calls with audio muted. Unlike the option above, this one is only
     // applied locally. FIXME: having these 2 options is confusing.
@@ -190,11 +190,11 @@ var config = {
     // enableLayerSuspension: false,
 
     // Every participant after the Nth will start video muted.
-    // startVideoMuted: 10,
+    // startVideoMuted: 1,
 
     // Start calls with video muted. Unlike the option above, this one is only
     // applied locally. FIXME: having these 2 options is confusing.
-    // startWithVideoMuted: false,
+    // startWithVideoMuted: true,
 
     // If set to true, prefer to use the H.264 video codec (if supported).
     // Note that it's not recommended to do this because simulcast is not
