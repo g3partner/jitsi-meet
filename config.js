@@ -366,7 +366,7 @@ var config = {
     //    // Provides a way to resize the desktop track to 720p (if it is greater than 720p) before creating a canvas
     //    // for the presenter mode (camera picture-in-picture mode with screenshare).
     //    resizeDesktopForPresenter: false
-    // },
+    },
 
     // // Options for the recording limit notification.
     // recordingLimit: {
