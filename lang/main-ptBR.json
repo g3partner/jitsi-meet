@@ -69,6 +69,7 @@
             "title": "Digite um apelido para usar o bate-papo",
             "titleWithPolls": "Digite um apelido para usar o bate-papo"
         },
+        
         "privateNotice": "Mensagem privada para {{recipient}}",
         "title": "Bate-papo",
         "titleWithPolls": "Bate-papo",
@@ -76,7 +77,11 @@
         "message": "Mensagem",
         "messageAccessibleTitle": "{{user}} disse:",
         "messageAccessibleTitleMe": "Você disse:",
-        "smileysPanel": "Painel de Emojis"
+        "smileysPanel": "Painel de Emojis",
+        "tabs": {
+            "chat": "Chat",
+            "polls": "Enquete"
+        }
     },
     "chromeExtensionBanner": {
         "installExtensionText": "Instale a extensão para integrar com Google Calendar e Office 365",
@@ -615,6 +620,34 @@
     },
     "passwordSetRemotely": "Definido por outro participante",
     "passwordDigitsOnly": "Até {{number}} dígitos",
+    "polls": {
+        "create": {
+            "addOption": "Adicionar opção",
+            "answerPlaceholder": "Opção {{index}}",
+            "create": "Criar uma enquete",
+            "cancel": "Cancelar",
+            "pollOption" : "Opção de enquete {{index}}",
+            "pollQuestion" : "Pergunta de Sondagem",
+            "questionPlaceholder": "Faça uma pergunta",
+            "removeOption": "Remover opção",
+            "send": "Enviar"
+        },
+        "answer": {
+            "skip": "Ignorar",
+            "submit": "Submeter"
+        },
+        "results": {
+            "vote": "Voto",
+            "changeVote": "Mudar o voto",
+            "empty": "Ainda não há enquete na reunião. Comece aqui uma enquete!",
+            "hideDetailedResults": "Ocultar detalhes",
+            "showDetailedResults": "Mostrar detalhes"
+        },
+        "notification": {
+            "title": "Uma nova enquete foi adicionada a esta reunião",
+            "description": "Abrir a aba das enquetes para votar"
+        }
+    },
     "poweredby": "distribuído por",
     "prejoin": {
         "audioAndVideoError": "Erro de áudio e vídeo error:",
