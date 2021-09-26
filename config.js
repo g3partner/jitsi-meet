@@ -9,7 +9,7 @@ var config = {
         domain: 'meet.g3partner.com.br',
 
         // When using authentication, domain for guest users.
-        // anonymousdomain: 'guest.example.com',
+        anonymousdomain: 'meet.g3partner.com.br',
 
         // Domain for authenticated users. Defaults to <domain>.
         // authdomain: 'jitsi-meet.example.com',
