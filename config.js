@@ -45,9 +45,12 @@ var config = {
         // disabled by the below option.
         // enableThumbnailReordering: true,
 
+        // Enables XMPP WebSocket (as opposed to BOSH) for the given amount of users.
+        // mobileXmppWsThreshold: 10 // enable XMPP WebSockets on mobile for 10% of the users
+
         // P2P test mode disables automatic switching to P2P when there are 2
         // participants in the conference.
-        p2pTestMode: false
+        // p2pTestMode: false,
 
         // Enables the test specific features consumed by jitsi-meet-torture
         // testMode: false
@@ -71,8 +74,11 @@ var config = {
         // callStatsThreshold: 5 // enable callstats for 5% of the users.
     },
 
-    // Enables reactions feature.
-    enableReactions: true,
+    // Disables moderator indicators.
+    // disableModeratorIndicator: false,
+
+    // Disables the reactions feature.
+    disableReactions: true,
 
     // Disables polls feature.
     // disablePolls: false,
@@ -539,6 +545,56 @@ var config = {
     //    '__end'
     // ],
 
+    // Holds values related to toolbar visibility control.
+    // toolbarConfig: {
+    //     // Moved from interfaceConfig.INITIAL_TOOLBAR_TIMEOUT
+    //     // The initial numer of miliseconds for the toolbar buttons to be visible on screen.
+    //     initialTimeout: 20000,
+    //     // Moved from interfaceConfig.TOOLBAR_TIMEOUT
+    //     // Number of miliseconds for the toolbar buttons to be visible on screen.
+    //     timeout: 4000,
+    //     // Moved from interfaceConfig.TOOLBAR_ALWAYS_VISIBLE
+    //     // Whether toolbar should be always visible or should hide after x miliseconds.
+    //     alwaysVisible: false
+    // },
+
+    // Toolbar buttons which have their click event exposed through the API on
+    // `toolbarButtonClicked` event instead of executing the normal click routine.
+    // buttonsWithNotifyClick: [
+    //    'camera',
+    //    'chat',
+    //    'closedcaptions',
+    //    'desktop',
+    //    'download',
+    //    'embedmeeting',
+    //    'etherpad',
+    //    'feedback',
+    //    'filmstrip',
+    //    'fullscreen',
+    //    'hangup',
+    //    'help',
+    //    'invite',
+    //    'livestreaming',
+    //    'microphone',
+    //    'mute-everyone',
+    //    'mute-video-everyone',
+    //    'participants-pane',
+    //    'profile',
+    //    'raisehand',
+    //    'recording',
+    //    'security',
+    //    'select-background',
+    //    'settings',
+    //    'shareaudio',
+    //    'sharedvideo',
+    //    'shortcuts',
+    //    'stats',
+    //    'tileview',
+    //    'toggle-camera',
+    //    'videoquality',
+    //    '__end'
+    // ],
+
     // List of pre meeting screens buttons to hide. The values must be one or more of the 5 allowed buttons:
     // 'microphone', 'camera', 'select-background', 'invite', 'settings'
     // hiddenPremeetingButtons: [],
@@ -700,6 +756,7 @@ var config = {
 
     // Array<string> of disabled sounds.
     // Possible values:
+    // - 'ASKED_TO_UNMUTE_SOUND'
     // - 'E2EE_OFF_SOUND'
     // - 'E2EE_ON_SOUND'
     // - 'INCOMING_MSG_SOUND'
@@ -863,14 +920,31 @@ var config = {
     // If true, tile view will not be enabled automatically when the participants count threshold is reached.
     // disableTileView: true,
 
+    // Controls the visibility and behavior of the top header conference info labels.
+    // If a label's id is not in any of the 2 arrays, it will not be visible at all on the header.
+    // conferenceInfo: {
+    //     // those labels will not be hidden in tandem with the toolbox.
+    //     alwaysVisible: ['recording', 'local-recording'],
+    //     // those labels will be auto-hidden in tandem with the toolbox buttons.
+    //     autoHide: [
+    //         'subject',
+    //         'conference-timer',
+    //         'participants-count',
+    //         'e2ee',
+    //         'transcribing',
+    //         'video-quality',
+    //         'insecure-room'
+    //     ]
+    // },
+
     // Hides the conference subject
     // hideConferenceSubject: true,
 
-    // Hides the recording label
-    // hideRecordingLabel: false,
-
     // Hides the conference timer.
     // hideConferenceTimer: true,
+
+    // Hides the recording label
+    // hideRecordingLabel: false,
 
     // Hides the participants stats
     // hideParticipantsStats: true,

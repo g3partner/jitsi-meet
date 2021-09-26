@@ -24,6 +24,8 @@ import {
     redirectToStaticPage,
     reloadWithStoredParams
 } from './react/features/app/actions';
+import { showModeratedNotification } from './react/features/av-moderation/actions';
+import { shouldShowModeratedNotification } from './react/features/av-moderation/functions';
 import {
     AVATAR_URL_COMMAND,
     EMAIL_COMMAND,
@@ -44,7 +46,8 @@ import {
     lockStateChanged,
     onStartMutedPolicyChanged,
     p2pStatusChanged,
-    sendLocalParticipant
+    sendLocalParticipant,
+    _conferenceWillJoin
 } from './react/features/base/conference';
 import { getReplaceParticipant } from './react/features/base/config/functions';
 import {
@@ -119,7 +122,7 @@ import {
     maybeOpenFeedbackDialog,
     submitFeedback
 } from './react/features/feedback';
-import { showNotification } from './react/features/notifications';
+import { isModerationNotificationDisplayed, showNotification } from './react/features/notifications';
 import { mediaPermissionPromptVisibilityChanged, toggleSlowGUMOverlay } from './react/features/overlay';
 import { suspendDetected } from './react/features/power-monitor';
 import {
@@ -870,9 +873,20 @@ export default {
      * dialogs in case of media permissions error.
      */
     muteAudio(mute, showUI = true) {
+        const state = APP.store.getState();
+
         if (!mute
-                && isUserInteractionRequiredForUnmute(APP.store.getState())) {
+            && isUserInteractionRequiredForUnmute(state)) {
             logger.error('Unmuting audio requires user interaction');
+
+            return;
+        }
+
+        // check for A/V Moderation when trying to unmute
+        if (!mute && shouldShowModeratedNotification(MEDIA_TYPE.AUDIO, state)) {
+            if (!isModerationNotificationDisplayed(MEDIA_TYPE.AUDIO, state)) {
+                APP.store.dispatch(showModeratedNotification(MEDIA_TYPE.AUDIO));
+            }
 
             return;
         }
@@ -1315,13 +1329,13 @@ export default {
                 APP.conference.roomName,
                 this._getConferenceOptions());
 
-        APP.store.dispatch(conferenceWillJoin(room));
-
         // Filter out the tracks that are muted (except on mobile Safari).
         const tracks = isIosMobileBrowser() ? localTracks : localTracks.filter(track => !track.isMuted());
 
         this._setLocalAudioVideoStreams(tracks);
         this._room = room; // FIXME do not use this
+
+        APP.store.dispatch(_conferenceWillJoin(room));
 
         sendLocalParticipant(APP.store, room);
 
@@ -1489,14 +1503,14 @@ export default {
      *
      * @param {boolean} didHaveVideo indicates if there was a camera video being
      * used, before switching to screen sharing.
-     * @param {boolean} wasVideoMuted indicates if the video was muted, before
-     * switching to screen sharing.
+     * @param {boolean} ignoreDidHaveVideo indicates if the camera video should be
+     * ignored when switching screen sharing off.
      * @return {Promise} resolved after the screen sharing is turned off, or
      * rejected with some error (no idea what kind of error, possible GUM error)
      * in case it fails.
      * @private
      */
-    async _turnScreenSharingOff(didHaveVideo) {
+    async _turnScreenSharingOff(didHaveVideo, ignoreDidHaveVideo) {
         this._untoggleScreenSharing = null;
         this.videoSwitchInProgress = true;
 
@@ -1540,7 +1554,7 @@ export default {
 
         APP.store.dispatch(setScreenAudioShareState(false));
 
-        if (didHaveVideo) {
+        if (didHaveVideo && !ignoreDidHaveVideo) {
             promise = promise.then(() => createLocalTracksF({ devices: [ 'video' ] }))
                 .then(([ stream ]) => {
                     logger.debug(`_turnScreenSharingOff using ${stream} for useVideoStream`);
@@ -1591,9 +1605,10 @@ export default {
      * @param {Array<string>} [options.desktopSharingSources] - Array with the
      * sources that have to be displayed in the desktop picker window ('screen',
      * 'window', etc.).
+     * @param {boolean} ignoreDidHaveVideo - if true ignore if video was on when sharing started.
      * @return {Promise.<T>}
      */
-    async toggleScreenSharing(toggle = !this._untoggleScreenSharing, options = {}) {
+    async toggleScreenSharing(toggle = !this._untoggleScreenSharing, options = {}, ignoreDidHaveVideo) {
         logger.debug(`toggleScreenSharing: ${toggle}`);
         if (this.videoSwitchInProgress) {
             return Promise.reject('Switch in progress.');
@@ -1619,7 +1634,7 @@ export default {
         }
 
         return this._untoggleScreenSharing
-            ? this._untoggleScreenSharing()
+            ? this._untoggleScreenSharing(ignoreDidHaveVideo)
             : Promise.resolve();
     },
 
@@ -2462,8 +2477,8 @@ export default {
         });
 
         APP.UI.addListener(
-            UIEvents.TOGGLE_SCREENSHARING, ({ enabled, audioOnly }) => {
-                this.toggleScreenSharing(enabled, { audioOnly });
+            UIEvents.TOGGLE_SCREENSHARING, ({ enabled, audioOnly, ignoreDidHaveVideo }) => {
+                this.toggleScreenSharing(enabled, { audioOnly }, ignoreDidHaveVideo);
             }
         );
     },

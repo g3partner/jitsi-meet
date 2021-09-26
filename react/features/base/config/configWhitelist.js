@@ -19,6 +19,7 @@ export default [
     'apiLogLevels',
     'avgRtpStatsN',
     'backgroundAlpha',
+    'buttonsWithNotifyClick',
 
     /**
      * The display name of the CallKit call representing the conference/meeting
@@ -69,6 +70,7 @@ export default [
      */
     'callUUID',
 
+    'conferenceInfo',
     'channelLastN',
     'connectionIndicators',
     'constraints',
@@ -94,9 +96,11 @@ export default [
     'disableIncomingMessageSound',
     'disableJoinLeaveSounds',
     'disableLocalVideoFlip',
+    'disableModeratorIndicator',
     'disableNS',
     'disablePolls',
     'disableProfile',
+    'disableReactions',
     'disableRecordAudioNotification',
     'disableRemoteControl',
     'disableRemoteMute',
@@ -124,7 +128,6 @@ export default [
     'enableLayerSuspension',
     'enableLipSync',
     'enableOpusRed',
-    'enableReactions',
     'enableRemb',
     'enableSaveLogs',
     'enableScreenshotCapture',
@@ -185,6 +188,7 @@ export default [
     'subject',
     'testing',
     'toolbarButtons',
+    'toolbarConfig',
     'useHostPageLocalStorage',
     'useTurnUdp',
     'videoQuality.persist',

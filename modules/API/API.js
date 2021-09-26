@@ -15,6 +15,7 @@ import {
 } from '../../react/features/base/conference';
 import { overwriteConfig, getWhitelistedJSON } from '../../react/features/base/config';
 import { toggleDialog } from '../../react/features/base/dialog/actions';
+import { isSupportedBrowser } from '../../react/features/base/environment';
 import { parseJWTFromURLParams } from '../../react/features/base/jwt';
 import JitsiMeetJS, { JitsiRecordingConstants } from '../../react/features/base/lib-jitsi-meet';
 import { MEDIA_TYPE } from '../../react/features/base/media';
@@ -692,6 +693,7 @@ class API {
         this._enabled = true;
 
         initCommands();
+        this.notifyBrowserSupport(isSupportedBrowser());
     }
 
     /**
@@ -1339,6 +1341,32 @@ class API {
         this._sendEvent({
             name: 'error-occurred',
             error
+        });
+    }
+
+    /**
+     * Notify external application ( if API is enabled) that a toolbar button was clicked.
+     *
+     * @param {string} key - The key of the toolbar button.
+     * @returns {void}
+     */
+    notifyToolbarButtonClicked(key: string) {
+        this._sendEvent({
+            name: 'toolbar-button-clicked',
+            key
+        });
+    }
+
+    /**
+     * Notify external application (if API is enabled) wether the used browser is supported or not.
+     *
+     * @param {boolean} supported - If browser is supported or not.
+     * @returns {void}
+     */
+    notifyBrowserSupport(supported: boolean) {
+        this._sendEvent({
+            name: 'browser-support',
+            supported
         });
     }
 

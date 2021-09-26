@@ -76,6 +76,7 @@ const events = {
     'avatar-changed': 'avatarChanged',
     'audio-availability-changed': 'audioAvailabilityChanged',
     'audio-mute-status-changed': 'audioMuteStatusChanged',
+    'browser-support': 'browserSupport',
     'camera-error': 'cameraError',
     'chat-updated': 'chatUpdated',
     'content-sharing-participants-changed': 'contentSharingParticipantsChanged',
@@ -112,7 +113,8 @@ const events = {
     'dominant-speaker-changed': 'dominantSpeakerChanged',
     'subject-change': 'subjectChange',
     'suspend-detected': 'suspendDetected',
-    'tile-view-changed': 'tileViewChanged'
+    'tile-view-changed': 'tileViewChanged',
+    'toolbar-button-clicked': 'toolbarButtonClicked'
 };
 
 /**

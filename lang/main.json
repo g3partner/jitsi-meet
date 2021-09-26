@@ -214,6 +214,7 @@
         "done": "Feito",
         "e2eeDescription": "Encriptação ponto-a-ponto é, no momento, EXPERIMENTAL. Por favor tenha em mente que habilitar a encriptação ponto-a-ponto irá desativar os serviços disponíveis no servidor como: gravação, transmissão ao vivo e telefonar participantes. Além disso a reunião só irá funcionar para os participantes entrando em browsers com suporte a funcionalidade.",
         "e2eeLabel": "Enable End-to-End Encryption",
+        "e2eeDisabledDueToMaxModeDescription": "Cannot enable End-to-End Encryption due to large number of participants in the conference.",
         "e2eeWarning": "WARNING: Not all participants in this meeting seem to have support for End-to-End encryption. If you enable it they won't be able to see nor hear you.",
         "enterDisplayName": "Digite seu nome aqui",
         "embedMeeting": "Reunião em formato compacto",
