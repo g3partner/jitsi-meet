@@ -163,6 +163,7 @@
     "postinstall": "patch-package && jetify",
     "validate": "npm ls",
     "start": "make dev",
+    "build": "make && rm -f ../*.deb && rm -f ../*.changes && rm -f ../*.buildinfo && dpkg-buildpackage -A -rfakeroot -us -uc -tc",
     "ios": "react-native run-ios",
     "android": "react-native run-android"
   }
